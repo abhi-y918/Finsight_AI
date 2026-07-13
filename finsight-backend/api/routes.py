@@ -101,8 +101,8 @@ async def analyze_statement(file: UploadFile = File(...)):
     try:
         with tempfile.NamedTemporaryFile(
             suffix=file_ext,
-            delete=False,
-            dir="/tmp"
+            delete=False
+            # Removed dir="/tmp" to support Windows (will use system temp dir)
         ) as tmp:
             tmp.write(contents)
             tmp_path = tmp.name

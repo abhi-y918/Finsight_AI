@@ -123,6 +123,7 @@ def detect_bank_format(text: str) -> str:
         "KOTAK": ["KOTAK MAHINDRA BANK", "KOTAK BANK"],
         "PNB": ["PUNJAB NATIONAL BANK", "PNB"],
         "BOB": ["BANK OF BARODA", "BOB"],
+        "SUVIDHA": ["SUVIDHA NATIONAL BANK", "SUVIDHA"],
     }
 
     for bank_id, patterns in bank_patterns.items():

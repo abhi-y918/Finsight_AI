@@ -1,0 +1,14 @@
+{
+  "categories": [
+    { "name": "Food & dining",      "color": "#2563EB", "icon": "tools-kitchen-2" },
+    { "name": "Housing",            "color": "#7C3AED", "icon": "home" },
+    { "name": "Transport",          "color": "#0D9373", "icon": "bus" },
+    { "name": "Entertainment",      "color": "#D97706", "icon": "device-tv" },
+    { "name": "Health",             "color": "#E11D48", "icon": "heart-rate-monitor" },
+    { "name": "Shopping",           "color": "#0891B2", "icon": "shopping-bag" },
+    { "name": "Bills & utilities",  "color": "#7C3AED", "icon": "bolt" },
+    { "name": "Banking & transfers","color": "#64748B", "icon": "building-bank" },
+    { "name": "Income",             "color": "#0D9373", "icon": "trending-up" },
+    { "name": "Others",             "color": "#94A3B8", "icon": "dots-circle-horizontal" }
+  ]
+}

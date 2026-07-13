@@ -20,9 +20,11 @@ class Settings(BaseSettings):
     APP_NAME: str = "FinSight AI"
     DEBUG: bool = True
 
-    # ── Claude API ───────────────────────────────────────────────
-    # Get this from console.anthropic.com
-    ANTHROPIC_API_KEY: str = ""
+    # ── OpenRouter API ───────────────────────────────────────────
+    # Get this from openrouter.ai
+    OPENROUTER_API_KEY: str = ""
+    OPENROUTER_BASE_URL: str = "https://openrouter.ai/api/v1"
+    AI_MODEL: str = "anthropic/claude-3.5-sonnet"
 
     # ── File Upload ──────────────────────────────────────────────
     MAX_FILE_SIZE_MB: int = 10

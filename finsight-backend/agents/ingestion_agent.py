@@ -70,6 +70,14 @@ BANK_COLUMN_MAPS = {
         "amount": 3,             # single amount column
         "balance": 4,
     },
+    "SUVIDHA": {
+        # Date | Description | Category | Debit (Rs.) | Credit (Rs.) | Balance (Rs.)
+        "date": 0,
+        "description": 1,
+        "debit": 3,
+        "credit": 4,
+        "balance": 5,
+    },
     # Fallback: try to auto-detect columns by header names
     "UNKNOWN": {
         "date": 0,

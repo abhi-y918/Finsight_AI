@@ -1,0 +1,62 @@
+# docker-compose.yml
+# ─────────────────────────────────────────────────────────────────
+# Runs BOTH backend and frontend together with one command:
+#   docker-compose up
+#
+# HOW DOCKER NETWORKING WORKS:
+#   Docker creates a private network for all services in this file.
+#   Services talk to each other using SERVICE NAME as hostname.
+#
+#   ✅ frontend → backend:8000  (works — service name)
+#   ❌ frontend → localhost:8000 (breaks — localhost = the container itself)
+#
+# PORTS:
+#   "8000:8000" means HOST:CONTAINER
+#   Left side  = port on YOUR machine
+#   Right side = port inside the container
+#   So http://localhost:8000 on your browser → container port 8000
+# ─────────────────────────────────────────────────────────────────
+
+services:
+
+  # ── Backend (FastAPI) ───────────────────────────────────────────
+  backend:
+    build:
+      context: ./finsight-backend     # folder containing Dockerfile
+      dockerfile: Dockerfile
+    container_name: finsight-backend
+    ports:
+      - "8000:8000"                   # localhost:8000 → container:8000
+    env_file:
+      - ./finsight-backend/.env       # loads ANTHROPIC_API_KEY etc.
+    environment:
+      - DEBUG=false                   # override .env for production
+    restart: unless-stopped           # auto-restart if container crashes
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ── Frontend (React + Nginx) ────────────────────────────────────
+  frontend:
+    build:
+      context: ./finsight-frontend
+      dockerfile: Dockerfile
+      args:
+        # The React app runs in the user's browser, so it accesses the backend
+        # using localhost (host machine's view), NOT the Docker internal network name.
+        - VITE_API_URL=http://localhost:8000
+    container_name: finsight-frontend
+    ports:
+      - "5173:80"                     # localhost:5173 → container:80 (nginx)
+    depends_on:
+      backend:
+        condition: service_healthy    # wait for backend health check to pass
+    restart: unless-stopped
+
+# ── Named volumes (Phase 2+) ────────────────────────────────────
+# Uncomment when you add PostgreSQL or Redis
+# volumes:
+#   postgres_data:
+#   redis_data:
