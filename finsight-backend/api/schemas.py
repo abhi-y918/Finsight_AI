@@ -36,6 +36,8 @@ class Summary(BaseModel):
     monthly_avg_spend:  float
     monthly_avg_income: float
     total_transactions: int
+    opening_balance:    Optional[float] = 0.0
+    closing_balance:    Optional[float] = 0.0
 
 class CategorySummary(BaseModel):
     category:   str

@@ -36,6 +36,15 @@ def build_summary(transactions: list, metadata: dict) -> dict:
     net = total_income - total_spending
     savings_rate = (net / total_income * 100) if total_income > 0 else 0
 
+    opening_balance = 0.0
+    closing_balance = 0.0
+    if transactions:
+        sorted_txns = sorted(transactions, key=lambda x: x.get("date", ""))
+        first_txn = sorted_txns[0]
+        last_txn = sorted_txns[-1]
+        closing_balance = last_txn.get("balance", 0.0)
+        opening_balance = first_txn.get("balance", 0.0) - first_txn.get("credit", 0.0) + first_txn.get("debit", 0.0)
+
     return {
         "total_income":        round(total_income, 2),
         "total_spending":      round(total_spending, 2),
@@ -45,6 +54,8 @@ def build_summary(transactions: list, metadata: dict) -> dict:
         "monthly_avg_spend":   round(total_spending / months, 2) if months > 0 else total_spending,
         "monthly_avg_income":  round(total_income / months, 2)   if months > 0 else total_income,
         "total_transactions":  len(transactions),
+        "opening_balance":     round(opening_balance, 2),
+        "closing_balance":     round(closing_balance, 2),
     }
 
 
